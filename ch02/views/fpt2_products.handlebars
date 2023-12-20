@@ -1,0 +1,19 @@
+<section>
+    <h2>Product List</h2>
+    {{#if products}}
+    <ul>
+        {{#each products}}
+        <li>
+            <img src="{{image}}" alt="{{name}}" />
+            <p>{{name}}</p>
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p>No products available.</p>
+    {{/if}}
+</section>
+
+<footer>
+    © 2023 Your Company Name. All rights reserved.
+</footer>
