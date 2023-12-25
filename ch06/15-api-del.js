@@ -26,10 +26,8 @@ app.use((req, res) => res.send(
     ' or <a href="https://curl.haxx.se/">curl</a> to try the following:</p>' +
     '<pre>' +
     'GET /api/tours\n' +
-    'DELETE /api/tour/@\n' +
-    'GET /api/tours?name=Hood+River\n' +
-    'GET /api/tours?price=100\n' +
-    '</pre>'
+    'DELETE /api/tour/0\n' +
+    'GET /api/tours'
 ));
 
 const port = process.env.PORT || 3000;
