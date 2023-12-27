@@ -1,9 +1,63 @@
-<h2>Example 9 home</h2>
-<p>Here are some links: </p>
-<ul>
-    <li><a href="/page1">Page 1</a></li>
-    <li><a href="/page2">Page 2</a></li>
-    <li><a href="/page3">Page 3</a></li>
-    <li><a href="/page4">Page 4</a>(I'm the bad egg!)</li>
-    <li><a href="/what">What?</a>(I'm the a bad egg!)</li>
-</ul>
+<h2>Tell Us About Yourself</h2>
+<form action="/process-contact" method="post">
+    <div>
+        <label>Your Name:
+            <input name="name" />
+        </label>
+    </div>
+    <br />
+    <div>
+        <label>Your Email:
+            <input name="email" type="email" />
+        </label>
+    </div>
+    <br />
+    <div>
+        <label>Simulator error:
+            <input name="simulateError" type="checkbox" />
+        </label>
+    </div>
+    <br />
+    <div>
+        <label>Use Ajax?:
+            <input name="useAjax" type="checkbox" />
+        </label>
+    </div>
+    <br />
+    <div>
+        <button type="submit">submit</button>
+    </div>
+</form>
+<script>
+    const api = {
+        post(path, data) {
+            const body = typeof data == 'object' ? JSON.stringify(data) : data
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+            return fetch(path, { method: "Post", body, headers })
+                .then(res => {
+                    if (res.status < 200 || res.status >= 400)
+                        return Promise.reject(new Error('API error: ${res.status}'))
+                    return res.json()
+                })
+        }
+    }
+    document.querySelector('form').addEventListener('submit', evt => {
+        const formdata = new FormData(evt.target)
+        if (!formdata.get('useAjax')) return
+
+        evt.preventDefault()
+        const data = {
+            name: formdata.get('name'),
+            email: formdata.get('email'),
+            simulateError: formdata.get('simulateError'),
+
+        }
+        api.post('/process-contact', data)
+            .then(() => window.location = '/thank-you')
+            .catch(() => window.location = '/contact-error')
+    })
+
+</script>
